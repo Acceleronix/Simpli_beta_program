@@ -32,7 +32,6 @@ function getClientIp(req) {
 }
 
 function isValidEmail(email) {
-  if (!email) return true; // optional
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
@@ -57,6 +56,8 @@ export default async function handler(req, res) {
 
     if (!name) return res.status(400).json({ error: 'Missing name' });
     if (!date) return res.status(400).json({ error: 'Missing date' });
+    if (!email) return res.status(400).json({ error: 'Missing email' });
+    if (!company) return res.status(400).json({ error: 'Missing company' });
     if (!isValidEmail(email)) return res.status(400).json({ error: 'Invalid email' });
 
     const userAgent = String(req.headers['user-agent'] || '');

@@ -383,12 +383,12 @@
           <input id="date" type="date" required />
         </div>
         <div class="field">
-          <label for="email">Email (optional)</label>
-          <input id="email" type="email" placeholder="you@example.com" />
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@example.com" required />
         </div>
         <div class="field">
-          <label for="company">Company (optional)</label>
-          <input id="company" type="text" placeholder="Company name" />
+          <label for="company">Company</label>
+          <input id="company" type="text" placeholder="Company name" required />
         </div>
       </div>
       
@@ -420,16 +420,25 @@
 
     initDate();
 
+    function validateForm() {
+      const inputs = [nameI, emailI, companyI, dateI];
+      for (const el of inputs) {
+        if (!el.checkValidity()) {
+          el.reportValidity?.();
+          el.focus();
+          return false;
+        }
+      }
+      return true;
+    }
+
     async function submitRegistration() {
       const name = nameI.value.trim();
       const date = dateI.value.trim();
       const email = emailI.value.trim();
       const company = companyI.value.trim();
 
-      if (!name || !date) {
-        alert('Please fill in name and date first.');
-        return;
-      }
+      if (!validateForm()) return;
 
       statusEl.style.display = 'block';
       statusEl.style.color = '#0f172a';
