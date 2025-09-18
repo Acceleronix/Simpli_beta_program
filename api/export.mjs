@@ -24,12 +24,16 @@ export default async function handler(req, res) {
         date TEXT NOT NULL,
         ip TEXT,
         user_agent TEXT,
+        ip_country TEXT,
+        ip_region TEXT,
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `;
+    await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS ip_country TEXT`;
+    await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS ip_region TEXT`;
 
     const { rows } = await sql`
-      SELECT id, name, email, company, date, ip, user_agent, created_at
+      SELECT id, name, email, company, date, ip, ip_country, ip_region, created_at
       FROM registrations
       ORDER BY created_at DESC
     `;
@@ -41,7 +45,8 @@ export default async function handler(req, res) {
       'company',
       'date',
       'ip',
-      'user_agent',
+      'ip_country',
+      'ip_region',
       'created_at'
     ].map(toCsvValue).join(',');
 
@@ -54,7 +59,8 @@ export default async function handler(req, res) {
         toCsvValue(r.company ?? ''),
         toCsvValue(r.date),
         toCsvValue(r.ip ?? ''),
-        toCsvValue(r.user_agent ?? ''),
+        toCsvValue(r.ip_country ?? ''),
+        toCsvValue(r.ip_region ?? ''),
         toCsvValue(r.created_at)
       ].join(','));
     }

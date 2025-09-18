@@ -61,6 +61,8 @@ export default async function handler(req, res) {
 
     const userAgent = String(req.headers['user-agent'] || '');
     const ip = getClientIp(req);
+    const ipCountry = String(req.headers['x-vercel-ip-country'] || '').trim() || null; // e.g., "US"
+    const ipRegion = String(req.headers['x-vercel-ip-country-region'] || '').trim() || null; // e.g., "CA"
 
     // Ensure table exists (idempotent)
     await sql`
@@ -72,13 +74,19 @@ export default async function handler(req, res) {
         date TEXT NOT NULL,
         ip TEXT,
         user_agent TEXT,
+        ip_country TEXT,
+        ip_region TEXT,
         created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `;
 
+    // Backfill for existing tables: add new columns if they don't exist
+    await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS ip_country TEXT`;
+    await sql`ALTER TABLE registrations ADD COLUMN IF NOT EXISTS ip_region TEXT`;
+
     const result = await sql`
-      INSERT INTO registrations (name, email, company, date, ip, user_agent)
-      VALUES (${name}, ${email || null}, ${company || null}, ${date}, ${ip || null}, ${userAgent || null})
+      INSERT INTO registrations (name, email, company, date, ip, user_agent, ip_country, ip_region)
+      VALUES (${name}, ${email || null}, ${company || null}, ${date}, ${ip || null}, ${userAgent || null}, ${ipCountry}, ${ipRegion})
       RETURNING id, created_at
     `;
 
