@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { getSql } from '../lib/db.mjs';
 
 function toCsvValue(v) {
   if (v === null || v === undefined) return '""';
@@ -7,6 +7,7 @@ function toCsvValue(v) {
 }
 
 export default async function handler(req, res) {
+  const sql = getSql();
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');
     return res.status(405).json({ error: 'Method Not Allowed' });
@@ -68,4 +69,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
-

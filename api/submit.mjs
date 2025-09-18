@@ -1,4 +1,4 @@
-import { sql } from '@vercel/postgres';
+import { getSql } from '../lib/db.mjs';
 
 async function readJson(req) {
   return new Promise((resolve, reject) => {
@@ -37,6 +37,7 @@ function isValidEmail(email) {
 }
 
 export default async function handler(req, res) {
+  const sql = getSql();
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method Not Allowed' });
@@ -92,4 +93,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
-
