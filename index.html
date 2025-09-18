@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Acceleronix SimpiBeta Agreement — Registration & Signature</title>
+  <style>
+    :root {
+      --maxw: 900px;
+      --bg: #fafafa;
+      --fg: #1c1c1c;
+      --muted: #666;
+      --brand: #1269d3;
+      --border: #ddd;
+    }
+    html, body { 
+      margin: 0; 
+      padding: 0; 
+      background: var(--bg); 
+      color: var(--fg); 
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif; 
+    }
+    .container { 
+      max-width: var(--maxw); 
+      margin: 24px auto; 
+      padding: 0 16px; 
+    }
+    h1, h2, h3 { 
+      line-height: 1.3; 
+    }
+    .card { 
+      background: #fff; 
+      border: 1px solid var(--border); 
+      border-radius: 10px; 
+      box-shadow: 0 1px 2px rgba(0,0,0,.04); 
+    }
+    #signup-controls { 
+      padding: 16px; 
+      margin-bottom: 16px; 
+    }
+    #signup-controls h2 { 
+      margin: 0 0 12px; 
+      font-size: 18px; 
+    }
+    .grid { 
+      display: grid; 
+      gap: 12px; 
+      grid-template-columns: repeat(2, minmax(0,1fr)); 
+    }
+    .field { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 6px; 
+    }
+    label { 
+      font-weight: 600; 
+      font-size: 13px; 
+      color: #333; 
+    }
+    input[type="text"], input[type="date"], input[type="email"] { 
+      border: 1px solid var(--border); 
+      border-radius: 8px; 
+      padding: 10px 12px; 
+      font-size: 14px; 
+    }
+    .actions { 
+      display: flex; 
+      gap: 10px; 
+      margin-top: 10px; 
+      flex-wrap: wrap; 
+    }
+    button { 
+      background: var(--brand); 
+      color: #fff; 
+      border: none; 
+      border-radius: 8px; 
+      padding: 10px 14px; 
+      font-weight: 600; 
+      cursor: pointer; 
+    }
+    button.secondary { 
+      background: #f1f5f9; 
+      color: #0f172a; 
+    }
+    .preview-box { 
+      border: 1px dashed var(--border); 
+      border-radius: 10px; 
+      padding: 12px; 
+      margin-top: 12px; 
+      background: #fff; 
+      color: #0f172a; 
+    }
+    .muted { 
+      color: var(--muted); 
+      font-size: 13px; 
+    }
+    
+    /* 协议内容样式优化 */
+    .agreement { 
+      padding: 40px 48px;
+      line-height: 1.5;
+    }
+    
+    .agreement-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #1c1c1c;
+      margin-bottom: 32px;
+      letter-spacing: 0.5px;
+    }
+    
+    .greeting {
+      font-weight: bold;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+    
+    .intro {
+      margin-bottom: 32px;
+      color: #374151;
+    }
+    
+    .section {
+      margin-bottom: 24px;
+    }
+    
+    .section-title {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 12px;
+      color: #1f2937;
+    }
+    
+    .section-content {
+      color: #374151;
+      margin-bottom: 8px;
+    }
+    
+    .included-list {
+      margin-left: 0;
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    
+    .included-list li {
+      margin-bottom: 6px;
+      color: #374151;
+    }
+    
+    .role-list {
+      margin-left: 0;
+      padding-left: 20px;
+      margin-bottom: 16px;
+    }
+    
+    .role-list li {
+      margin-bottom: 8px;
+      color: #374151;
+    }
+    
+    .highlight {
+      font-weight: bold;
+      color: #1f2937;
+    }
+    
+    .important-note {
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 20px 0;
+    }
+    
+    .important-note .note-title {
+      font-weight: bold;
+      color: #92400e;
+      margin-bottom: 8px;
+    }
+    
+    .important-note ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+    
+    .important-note li {
+      color: #92400e;
+      margin-bottom: 4px;
+    }
+    
+    .signature-section {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    .signature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 32px;
+    }
+    
+    .signature-field {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .signature-label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #374151;
+    }
+    
+    .signature-line {
+      border-bottom: 2px solid #000;
+      min-height: 20px;
+      font-weight: bold;
+      color: #1f2937;
+      padding-bottom: 4px;
+    }
+    
+    .text-center { 
+      text-align: center; 
+    }
+    
+    .text-right { 
+      text-align: right; 
+    }
+    
+    @media print {
+      #signup-controls { 
+        display: none !important; 
+      }
+      body { 
+        background: #fff; 
+      }
+      .card { 
+        box-shadow: none; 
+        border: none; 
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .agreement {
+        padding: 24px 20px;
+      }
+      
+      .signature-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card agreement">
+      <div id="agreement-body">
+        <div class="agreement-title">Acceleronix SimpiBeta Program</div>
+        
+        <div class="greeting">Dear Participant,</div>
+        
+        <div class="intro">
+          Thank you for joining the Acceleronix SimpiBeta Program.
+          <br><br>
+          This agreement explains how the program works, what you can expect from us, and what we ask from you in return.
+        </div>
+
+        <div class="section">
+          <div class="section-title">1. Purpose</div>
+          <div class="section-content">
+            The Beta Program is designed to let you use our products after this training while helping us test and improve them together.
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">2. What's included</div>
+          <div class="section-content">
+            The Beta Program covers a range of our hardware, software, and services, including:
+          </div>
+          <ul class="included-list">
+            <li>Acceleronix SIMPLIKIT EVK</li>
+            <li>Acceleronix IoT Platform Service</li>
+            <li>Acceleronix SGP.32 eSIM service</li>
+            <li>Acceleronix vSIM service</li>
+            <li>Acceleronix CMP</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">3. Duration</div>
+          <div class="section-content">
+            The program runs until <span class="highlight">September 30, 2026</span>.
+            <br><br>
+            You may use the products free of charge during this period. After the program ends, you may keep the products, but Acceleronix does not guarantee that they will remain functional or supported beyond the program's end date.
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">4. Your role</div>
+          <div class="section-content">
+            By joining the program, you agree to:
+          </div>
+          <ul class="role-list">
+            <li>Use the products in your regular activities.</li>
+            <li>Share your experiences, feedback, and ideas with us — whether it's by replying to emails, reporting issues, or suggesting improvements. Formal reports are recommended but not required.</li>
+            <li>Stay connected through the Beta Program mailing list, where we will send you guidance documents, updates, and news.</li>
+            <li>Acknowledge that Acceleronix may contact you when necessary in relation to your participation in the Beta Program.</li>
+            <li>You are welcome to share publicly that you are part of the Beta Program.</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">5. Our role</div>
+          <div class="section-content">
+            Acceleronix will:
+          </div>
+          <ul class="role-list">
+            <li>Provide you with the products after the training.</li>
+            <li>Offer guidance, support documents, and updates through the mailing list.</li>
+            <li>Listen to your feedback and use it to improve our products.</li>
+            <li>Continue to improve and expand the products during the program.</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">6. Data and privacy</div>
+          <div class="section-content">
+            Using the products may generate data. We handle all data in compliance with the GDPR and other applicable EMEA regulations. Data is used only to improve our products and services.
+          </div>
+        </div>
+
+        <div class="important-note">
+          <div class="note-title">7. Important note</div>
+          <div>The products you receive are part of a Beta Program. This means:</div>
+          <ul>
+            <li>Some features may not be final and may change.</li>
+            <li>There may be bugs or technical issues.</li>
+            <li>We do not guarantee uninterrupted or error-free operation.</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-title">8. Ownership and feedback</div>
+          <div class="section-content">
+            All products and related intellectual property belong to Acceleronix.
+            <br><br>
+            Any feedback or suggestions you share with us may be freely used by Acceleronix to improve our products, without obligation of payment.
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">9. Leaving the program</div>
+          <div class="section-content">
+            You may leave the Beta Program at any time by letting us know.
+            <br><br>
+            Acceleronix may also end the program, or your participation, at any time if needed.
+          </div>
+        </div>
+
+        <div class="signature-section">
+          <div class="section-content">
+            By joining the Beta Program, you confirm that you understand and agree to these terms.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="signup-controls" class="card" style="margin-top:16px;">
+      <h2>Participant Details</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Full name" required />
+        </div>
+        <div class="field">
+          <label for="date">Date</label>
+          <input id="date" type="date" required />
+        </div>
+        <div class="field">
+          <label for="email">Email (optional)</label>
+          <input id="email" type="email" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label for="company">Company (optional)</label>
+          <input id="company" type="text" placeholder="Company name" />
+        </div>
+      </div>
+      
+      <div class="actions">
+        <button id="btn-submit" type="button">Submit Registration</button>
+      </div>
+      
+      <div id="submit-status" class="preview-box muted" style="display:none"></div>
+    </div>
+  </div>
+  
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const nameI = $('name');
+    const dateI = $('date');
+    const emailI = $('email');
+    const companyI = $('company');
+    const statusEl = $('submit-status');
+
+    function initDate() {
+      try {
+        const t = new Date();
+        const mm = String(t.getMonth()+1).padStart(2,'0');
+        const dd = String(t.getDate()).padStart(2,'0');
+        const val = t.getFullYear() + '-' + mm + '-' + dd;
+        dateI.value = val;
+      } catch(e) {}
+    }
+
+    initDate();
+
+    async function submitRegistration() {
+      const name = nameI.value.trim();
+      const date = dateI.value.trim();
+      const email = emailI.value.trim();
+      const company = companyI.value.trim();
+
+      if (!name || !date) {
+        alert('Please fill in name and date first.');
+        return;
+      }
+
+      statusEl.style.display = 'block';
+      statusEl.style.color = '#0f172a';
+      statusEl.textContent = 'Submitting...';
+
+      try {
+        const res = await fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, company, date })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.error) {
+          throw new Error(data.error || 'Submit failed');
+        }
+        statusEl.textContent = 'Submitted successfully. Thank you!';
+      } catch (e) {
+        statusEl.style.color = '#b91c1c';
+        statusEl.textContent = 'Submission error: ' + (e?.message || 'Unknown error');
+      }
+    }
+
+    $('btn-submit').addEventListener('click', submitRegistration);
+  </script>
+</body>
+</html>
